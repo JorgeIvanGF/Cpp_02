@@ -6,7 +6,7 @@
 /*   By: jorgutie <jorgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:55:42 by jorgutie          #+#    #+#             */
-/*   Updated: 2025/06/07 18:04:40 by jorgutie         ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:14 by jorgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,33 @@ void Fixed::setRawBits(int raw)
 
 // Int constructor
 Fixed::Fixed(int const intValue)
-    : _value(intValue << _fractionalBits)
+	: _value(intValue << _fractionalBits)
 {
-    std::cout << "Int constructor called" << std::endl;
+	std::cout << "Int constructor called" << std::endl;
+}
+
+// Float constructor
+Fixed::Fixed(float const floatValue)
+	: _value(static_cast<int>(roundf(floatValue * (1 << _fractionalBits))))
+{
+	std::cout << "Float constructor called" << std::endl;
+}
+
+// Convert back to float
+float Fixed::toFloat(void) const
+{
+	return static_cast<float>(_value) / (1 << _fractionalBits);
+}
+
+// Convert back to int (drops fractions)
+int Fixed::toInt(void) const
+{
+	return _value >> _fractionalBits;
+}
+
+// Stream insertion: print the float value
+std::ostream& operator<<(std::ostream& os, Fixed const& fx)
+{
+	os << fx.toFloat();
+	return os;
 }
