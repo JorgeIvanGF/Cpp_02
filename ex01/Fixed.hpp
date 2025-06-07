@@ -6,7 +6,7 @@
 /*   By: jorgutie <jorgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:02:35 by jorgutie          #+#    #+#             */
-/*   Updated: 2025/06/07 18:04:01 by jorgutie         ###   ########.fr       */
+/*   Updated: 2025/06/07 18:45:52 by jorgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ class Fixed
 		float toFloat(void) const;            // fixed-point → float
 		int   toInt(void)   const;            // fixed-point → int
 
-		// Stream insertion: print the float value
-		std::ostream& operator<<(std::ostream& os, Fixed const& fx);
 };
+
+// FREE OPERATOR (outside the Class) ________________
+// Stream insertion: print the float value
+std::ostream& operator<<(std::ostream& os, Fixed const& fx);
 
 #endif
