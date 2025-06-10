@@ -6,7 +6,7 @@
 /*   By: jorgutie <jorgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:12:27 by jorgutie          #+#    #+#             */
-/*   Updated: 2025/06/10 11:24:13 by jorgutie         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:43:30 by jorgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,3 +124,40 @@ bool Fixed::operator!=(Fixed const& other)const
 	return (_value != other._value);
 }
 
+
+// Arithmetic
+
+Fixed Fixed::operator+(Fixed const& other) const
+{
+	Fixed result;
+	result._value = _value + other._value;
+	return result;
+}
+
+Fixed Fixed::operator-(Fixed const& other) const
+{
+	Fixed result;
+	result._value = _value - other._value;
+	return result;
+}
+
+Fixed Fixed::operator*(Fixed const& other) const
+{
+	Fixed result;
+	// Multiply raw, then shift back by fractional bits
+	long tmp = (long)_value * other._value;
+	result._value = (int)(tmp >> _fractionalBits); 
+	// That single >> 8 divides tmp by 256 (dropping any extra bits),
+	// exactly rescaling the product into fixed-point format.
+	return result;
+}
+
+Fixed Fixed::operator/(Fixed const& other) const {
+	Fixed result;
+	// Shift up before dividing to retain precision
+	// That single << 8 multiplies by 256 (keeping the precision)
+	long tmp = ((long)_value << _fractionalBits);
+	//Cast back to int bc after dividing, the value fits in 32 bits again
+	result._value = (int)(tmp / other._value);
+	return result;
+}
