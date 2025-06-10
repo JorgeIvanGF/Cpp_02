@@ -6,7 +6,7 @@
 /*   By: jorgutie <jorgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:12:27 by jorgutie          #+#    #+#             */
-/*   Updated: 2025/06/10 14:43:30 by jorgutie         ###   ########.fr       */
+/*   Updated: 2025/06/10 16:06:24 by jorgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,40 @@ Fixed Fixed::operator/(Fixed const& other) const {
 	// Shift up before dividing to retain precision
 	// That single << 8 multiplies by 256 (keeping the precision)
 	long tmp = ((long)_value << _fractionalBits);
-	//Cast back to int bc after dividing, the value fits in 32 bits again
+	// Cast back to int bc after dividing, the value fits in 32 bits again
 	result._value = (int)(tmp / other._value);
 	return result;
+}
+
+
+// Increment and Decrement
+
+Fixed& Fixed::operator++() 
+{
+	// pre-increment
+	++_value;
+	return *this;
+}
+
+Fixed Fixed::operator++(int) //dummy int value, just for differenciate the post-
+{
+	// post-increment
+	Fixed old(*this);
+	++_value;
+	return old;
+}
+
+Fixed& Fixed::operator--()
+{
+	// pre-decrement
+	--_value;
+	return *this;
+}
+
+Fixed Fixed::operator--(int)
+{
+	// post-decrement
+	Fixed old(*this);
+	--_value;
+	return old;
 }
