@@ -6,7 +6,7 @@
 /*   By: jorgutie <jorgutie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:12:27 by jorgutie          #+#    #+#             */
-/*   Updated: 2025/06/10 16:06:24 by jorgutie         ###   ########.fr       */
+/*   Updated: 2025/06/10 16:18:33 by jorgutie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ bool Fixed::operator!=(Fixed const& other)const
 }
 
 
-// Arithmetic
+// Arithmetic ______________________________________________
 
 Fixed Fixed::operator+(Fixed const& other) const
 {
@@ -163,7 +163,7 @@ Fixed Fixed::operator/(Fixed const& other) const {
 }
 
 
-// Increment and Decrement
+// Increment and Decrement______________________________________________
 
 Fixed& Fixed::operator++() 
 {
@@ -193,4 +193,28 @@ Fixed Fixed::operator--(int)
 	Fixed old(*this);
 	--_value;
 	return old;
+}
+
+
+// Min and Max__________________________________________
+
+Fixed& Fixed::min(Fixed& a, Fixed& b)
+{
+	// using ternary operator: if (a<b) -> a, else -> b
+	return (a < b) ? a : b;
+}
+
+Fixed const& Fixed::min(Fixed const& a, Fixed const& b)
+{
+	return (a < b) ? a : b;
+}
+
+Fixed& Fixed::max(Fixed& a, Fixed& b)
+{
+	return (a > b) ? a : b;
+}
+
+Fixed const& Fixed::max(Fixed const& a, Fixed const& b)
+{
+	return (a > b) ? a : b;
 }
